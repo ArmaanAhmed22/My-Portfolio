@@ -1,0 +1,11 @@
+/*Retrieved from https://materializecss.com/footer.html*/
+  body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+  }
+
+#main-container {
+    flex: 1 0 auto;
+  }
+      

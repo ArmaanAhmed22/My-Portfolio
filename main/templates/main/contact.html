@@ -1,0 +1,42 @@
+{% extends "main/default.html" %}
+{% load static %}
+
+{% block content %}
+<h1 class="center">Contact Me</h1>
+<form action="" method="POST">
+    {% csrf_token %}
+    <div class="row">
+        <div class="input-field col m6 s12">
+            <input id="form-first-name" type="text" class="validate" name="form-first-name" />
+            <label for="form-first-name">First Name (optional)</label>
+        </div>
+        <div class="input-field col m6 s12">
+            <input id="form-last-name" type="text" class="validate" name="form-last-name" />
+            <label for="form-last-name">Last Name (optional)</label>
+        </div>
+    </div>
+    <div class="row">
+        <div class="input-field col s12">
+            <input id="form-email" type="email" class="validate" name="form-email" />
+            <label for="form-email">Sender Email (optional)</label>
+            <span class="helper-text" data-error="Improper email address"></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="input-field col s12">
+            <input id="form-subject" type="text" class="validate" name="form-subject" required />
+            <label for="form-subject">Email Subject</label>
+            <span class="helper-text" data-error="Need to have subject"></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="input-field col s12">
+            <textarea id="form-inquiry" class="materialize-textarea" name="form-inquiry" required></textarea>
+            <label for="form-inquiry">Message</label>
+        </div>
+    </div>
+    <button class="btn waves-effect waves-light" type="submit" name="action">Submit
+        <i class="material-icons right">send</i>
+      </button>
+</form>
+{% endblock %}

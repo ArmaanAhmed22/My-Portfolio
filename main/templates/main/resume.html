@@ -1,0 +1,102 @@
+{% extends "main/default.html" %}
+{% load static %}
+{% load templatetags_utils %}
+
+{% block head-content %}
+<link rel="stylesheet" type="text/css" href="{% static 'main/css/icon.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'main/css/bullet_point.css' %}">
+<script type="text/javascript">
+
+    function onOpenStart(clickedElement) {
+        clickedElement.innerHTML = "[-] "+clickedElement.id.substring(6)
+    }
+
+    function onCloseStart(clickedElement) {
+        clickedElement.innerHTML = "[+] "+clickedElement.id.substring(6)
+    }
+
+
+    document.addEventListener('DOMContentLoaded', function() {
+        var elems = document.querySelectorAll('.dropdown-trigger');
+        var options = {
+            'coverTrigger': false,
+            'onOpenStart': onOpenStart,
+            'onCloseStart': onCloseStart
+
+        }
+        var instances = M.Dropdown.init(elems, options);
+      });
+</script>
+{% endblock %}
+
+{% block content %}
+<div style="display: flex; justify-content: center;">
+    <img src="{% static 'main/img/profile-picture.jpg' %}" alt="profile picture" class="center-align img-responsive circle" />
+</div>
+<h2 class="center" style="margin:0;">ARMAAN AHMED</h2>
+<div class="row center">
+    <div class="col s4">
+        <span class="material-symbols-outlined icon-vertical-align">mail</span> Email me at <a href="mailto:aahmed68@jh.edu">aahmed68@jh.edu</a>
+    </div>
+    <div class="col s4">
+        <span class="material-symbols-outlined icon-vertical-align">location_on</span> The Johns Hopkins University
+    </div>
+    <div class="col s4">
+        <span class="material-symbols-outlined icon-vertical-align">school</span> BME and Biophysics Majors
+    </div>
+</div>
+<p class="flow-text center">Motivated student eager to combine bioinformatic and in vitro work to generate unique solutions. Able to work both individually and in a team to develop larger projects.</p>
+{% for category in categories %}
+    <h2 class="blue-text" style="border-bottom: 5px solid black; margin-bottom:0;">{{category.name}}</h2>
+    {% if category.name != "Skills" %}
+        {% for item in cvitems|get_item:category.name %}
+            {% if forloop.last %}
+                <div class="row">
+            {% else %}
+                <div class="row" style="border-bottom: 3px solid grey; margin-bottom:0;"> 
+            {% endif %}
+                <div class="col s5">
+                    {% define item.start_month|stringformat:"s" as start_month %}
+                    {% if item.start_month < 10 %}
+                        {% define "0"|addstr:start_month as start_month %}
+                    {% endif %}
+
+                    {% define item.end_month|stringformat:"s" as end_month %}
+                    {% if item.end_month < 10 %}
+                        {% define "0"|addstr:end_month as end_month %}
+                    {% endif %}
+
+                    {% if end_month == start_month and item.start_year == item.end_year %}
+                        <p>{{start_month}}/{{item.start_year}}</p>
+                    {% elif item.end_year == -1 or item.end_month == -1 %}
+                        <p>{{start_month}}/{{item.start_year}} - Present</p>
+                    {% else %}
+                        <p>{{start_month}}/{{item.start_year}} - {{end_month}}/{{item.end_year}}</p>
+                    {% endif %}
+                    
+                </div>
+                <div class="col s7">
+                    {{item|safe}}
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <div class="row">
+            {% for skill in skills %}
+                <div id="test" class="col s4">
+                    {% if skill.expand %}
+                        <p id="skill-{{skill}}" class="dropdown-trigger flow-text" data-target="dropdown-{{skill}}">[+] {{skill}}</p>
+                    {% else %}
+                        <p id="skill-{{skill}}" class="flow-text">{{skill}}</p>
+                    {% endif %}
+                    <ul id="dropdown-{{skill}}" class="dropdown-content" style:"vertical-align:top;">
+                        {% for dd_skill in skill.expand.expandible%}
+                            <li><p class="flow-text">{{dd_skill}}</p></li>
+                        {% endfor %}
+                    </ul>
+                </div>      
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endfor %}
+{% endblock %}

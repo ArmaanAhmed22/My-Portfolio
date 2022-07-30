@@ -1,0 +1,22 @@
+{% extends "main/default.html" %}
+{% load static %}
+
+{% block head-content %}
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<link rel="stylesheet" type="text/css" href="{% static 'main/css/icon.css' %}">
+{% endblock %}
+
+{% block content %}
+<a href="{% url 'main:projects' %}"><span class="material-icons navigate" style="font-size:36px">navigate_before</span></a>
+<h1 style="margin-bottom: 0px; margin-top:-10px">{{current_project.title}}</h1>
+<p style="margin-top: 0px; margin-bottom: 0px"> <i>Check out the project at: <a target="_blank" href="{{current_project.project_link}}">{{current_project.project_link}}</a></i></p>
+<div class="flow-text">
+    {{current_project.description|safe}}
+</div>
+
+<p class="left-element" style="margin-bottom:0"><i>Tags: </i></p>
+
+{% with tags=tags %}
+    {% include 'main/includes-small/tags-list.html' %}
+{% endwith %}
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends "main/default.html" %}
+{% load static %}
+
+{% block content %}
+<h1>Projects Page</h1>
+
+<div class="row">
+    {% for cur_project in projects %}
+    <div class="col s12 m6 l4">
+      <div class="card light-blue darken-1 hoverable">
+        
+        <div class="card-content white-text">
+          {% with tags=cur_project.list_tags.all %}
+            {% include 'main/includes-small/tags-list.html' %}
+          {% endwith %}
+          <span class="card-title">{{cur_project.short_title}}</span>
+          <p>{{cur_project.short_description}}</p>
+        </div>
+        <div class="dark-blue">
+            <div class="card-action center dark-blue">
+                <a class="btn light-blue waves-effect waves-light darken-3" href="{% url 'main:projects' %}/{{cur_project.where_is_projects_on_website}}">View Full Project</a>
+            </div>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock %}

@@ -1,0 +1,11 @@
+.navigate {
+    transition: all 200ms;
+}
+
+.navigate:hover {
+    font-size: 100%;
+}
+
+.icon-vertical-align {
+    vertical-align: bottom;
+}
