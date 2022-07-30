@@ -55,7 +55,7 @@
             {% else %}
                 <div class="row" style="border-bottom: 3px solid grey; margin-bottom:0;"> 
             {% endif %}
-                <div class="col s5">
+                <div class="col s12 m5 l5">
                     {% define item.start_month|stringformat:"s" as start_month %}
                     {% if item.start_month < 10 %}
                         {% define "0"|addstr:start_month as start_month %}
@@ -75,7 +75,7 @@
                     {% endif %}
                     
                 </div>
-                <div class="col s7">
+                <div class="col s12 m7 l7">
                     {{item|safe}}
                 </div>
             </div>
@@ -83,7 +83,7 @@
     {% else %}
         <div class="row">
             {% for skill in skills %}
-                <div id="test" class="col s4">
+                <div id="test" class="col s6 m4 l4">
                     {% if skill.expand %}
                         <p id="skill-{{skill}}" class="dropdown-trigger flow-text" data-target="dropdown-{{skill}}">[+] {{skill}}</p>
                     {% else %}
